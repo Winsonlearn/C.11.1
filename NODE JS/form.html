@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Multi Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Form Multi Response</h2>
+        <select id="formSelector">
+            <option value="">Pilih Jenis Form</option>
+            <option value="registrasi">Registrasi</option>
+            <option value="feedback">Feedback</option>
+            <option value="cheat">Cheat</option>
+            <!-- Tambahkan opsi form lainnya -->
+        </select>
+        <form id="dynamicForm">
+            <div id="formFields"></div>
+            <button type="submit" style="display:none;">Kirim</button>
+        </form>
+        <div class="status" id="formStatus"></div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxvQnlq8vDdoqhU56GYaSiKFRHp67M7TC16_DWqaisJ910FgHyabrQaUplqJF1MM-wM/exec';
+
+        const formConfigurations = {
+            registrasi: [
+                { label: "Nama Lengkap", type: "text", name: "nama", required: true },
+                { label: "Email", type: "email", name: "email", required: true },
+                { label: "Nomor Telepon", type: "tel", name: "telepon", required: true },
+                { label: "Alamat", type: "textarea", name: "alamat", required: true },
+                { label: "Pendidikan Terakhir", type: "select", name: "pendidikan", required: true, options: ["SMA", "D3", "S1", "S2"] },
+            ],
+            feedback: [
+                { label: "Nama", type: "text", name: "nama", required: true },
+                { label: "Rating", type: "select", name: "rating", required: true, options: ["5", "4", "3", "2", "1"] },
+                { label: "Komentar", type: "textarea", name: "komentar", required: true },
+                { label: "Saran Perbaikan", type: "textarea", name: "saran", required: false },
+            ],
+            cheat: [
+                { label: "ayam", type: "text", name: "ayam", required: true },
+                { label: "Rating", type: "select", name: "rating", required: true, options: ["5", "4", "3", "2", "1"] },
+                { label: "Komentar", type: "textarea", name: "komentar", required: true },
+                { label: "Saran Perbaikan", type: "textarea", name: "saran", required: false },
+            ],
+            // Tambahkan konfigurasi form lainnya di sini
+        };
+
+        function renderForm(formType) {
+            const formFieldsContainer = document.getElementById("formFields");
+            const submitButton = document.querySelector("#dynamicForm button");
+            formFieldsContainer.innerHTML = ""; // Kosongkan form sebelumnya
+
+            if (!formType || !formConfigurations[formType]) {
+                submitButton.style.display = "none";
+                return;
+            }
+
+            formConfigurations[formType].forEach(field => {
+                const wrapper = document.createElement("div");
+                wrapper.className = "form-group";
+
+                const label = document.createElement("label");
+                label.textContent = field.label;
+                wrapper.appendChild(label);
+
+                let input;
+                if (field.type === "textarea") {
+                    input = document.createElement("textarea");
+                } else if (field.type === "select") {
+                    input = document.createElement("select");
+                    field.options.forEach(option => {
+                        const opt = document.createElement("option");
+                        opt.value = option;
+                        opt.textContent = option;
+                        input.appendChild(opt);
+                    });
+                } else {
+                    input = document.createElement("input");
+                    input.type = field.type;
+                }
+
+                input.name = field.name;
+                if (field.required) input.required = true;
+                wrapper.appendChild(input);
+
+                formFieldsContainer.appendChild(wrapper);
+            });
+
+            submitButton.style.display = "block"; // Tampilkan tombol submit
+        }
+
+        document.getElementById("formSelector").addEventListener("change", e => {
+            
+            renderForm(e.target.value);
+        });
+
+        document.getElementById("dynamicForm").addEventListener("submit", e => {
+            e.preventDefault();
+            const formStatus = document.getElementById("formStatus");
+            formStatus.textContent = "Mengirim data...";
+            formStatus.className = "status";
+
+            const formData = new FormData(e.target);
+            formData.append("formType", document.getElementById("formSelector").value);
+
+            fetch(scriptURL, { method: "POST", body: formData })
+                .then(response => {
+                    formStatus.textContent = "Terima kasih! Data berhasil dikirim.";
+                    formStatus.className = "status success";
+                    e.target.reset();
+                })
+                .catch(error => {
+                    formStatus.textContent = "Gagal mengirim data. Silakan coba lagi.";
+                    formStatus.className = "status error";
+                    console.error("Error!", error.message);
+                });
+        });
+    </script>
+</body>
+</html>

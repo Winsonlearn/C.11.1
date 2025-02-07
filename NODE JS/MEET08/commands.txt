@@ -1,0 +1,69 @@
+show dbs
+show collections
+use<db>
+cls
+var <variable>
+help
+exit
+
+python -m venv env
+
+
+source env/bin/activate
+
+npm run build
+
+npx http-server
+
+const dbURI = 'mongodb+srv://winsonlearn:admin123@wcluster.nlhup.mongodb.net/nodejs-app?retryWrites=true&w=majority&appName=wcluster';
+
+
+
+db.books.find({author: “Budi”})
+db.books.find({author: “Budi”}, {title: 1))
+
+
+db.books.find().sort({title: -1}).limit(3)
+db.books.find().sort({title: 1})
+db.books.find().limit(2)
+db.books.find({author: "Budi"}).count()
+db.books.countDocuments()
+db.books.find({rating: {$gt:7}})
+db.books.find({rating: {$gt:5}})
+db.books.find({rating: {$lt:5}})
+db.books.find({rating: {$lte:7}})
+db.books.find({rating :{$gt:7}, author: "Budi"})
+db.books.find({ $or:[{pages: {$lt:300}}, {pages: {$gt:400}]})
+db.books.find({rating: {$in:[7,8,9]}})
+db.books.find({genres: {$all: ["fantasy"]}})
+
+
+semua buku written by paulocoleho
+semua buku lebih dari 4.5
+buku diriview oleh alice dan dikategorikan thriller
+find all books that have more than 400pages, rating minimal 4.5, genre fiction
+
+
+
+tugas 
+db.books.find({author: "Paulo Coelho"})
+db.books.find({rating: {$gt: 4.5}})
+db.books.find({ 
+    "reviews.reviewer": "Alice",
+      genres: "Thriller"})
+db.books.find({pages: {$gt: 400}, rating: {$gte: 4.5}, genres: "Fiction"})
+
+
+db.books.find({ author: "Paulo Coelho" })
+db.books.find({ rating: { $gt: 4.5 } })
+db.books.find({
+    "reviews.reviewer": "Alice",
+    genres: "Thriller"
+})
+db.books.find({
+    pages: { $gt: 400 },
+    rating: { $gte: 4.5 },
+    genres: "Fiction"
+})
+
+({ _id: Objectid("")}, {$set: {rating: 8, pages: 300}})

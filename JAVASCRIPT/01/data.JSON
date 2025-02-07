@@ -1,0 +1,17 @@
+[
+    {
+        "title" : "The first title",
+        "imageUrl" : "assets/matrix_1.webp",
+        "description" : "Welcome"
+    },
+    {
+        "title" : "The second title",
+        "imageUrl" : "assets/matrix_2.jpeg",
+        "description" : "To The??"
+    },
+    {
+        "title" : "The third title",
+        "imageUrl" : "assets/matrix_3.jpeg",
+        "description" : "Matrix!"
+    }
+]

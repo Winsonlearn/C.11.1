@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Selamat pagi user",
+        "tags": ["GM", "Good Morning"],
+        "date": "26-9-2024",
+        "isNew": "true"
+    },
+    {
+        "title": "Selamat malam user",
+        "tags": ["GN", "Good Night"],
+        "date": "26-9-2024",
+        "isNew": "false"
+    },
+    {
+        "title": "Sukses belajar coding",
+        "tags": ["Never Give Up", "Nothing Impossible"],
+        "date": "26-9-2024",
+        "isNew": "true"
+    },
+    {
+        "title": "Lewis Allen Data",
+        "tags": ["Masbro", "Keren"],
+        "date": "14-5-2008",
+        "isNew": "false"
+    },
+    {
+        "title": "This is anonymous",
+        "tags": ["How to get rich", "Crypto"],
+        "date": "14-2-2025",
+        "isNew": "true"
+    }
+]

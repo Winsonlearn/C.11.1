@@ -1,0 +1,20 @@
+[
+    {
+        "id": 118836,
+        "name":"Winson",
+        "image":"https://i.pravatar.cc/48?u=118836",
+        "balance": 99
+    },
+    {
+        "id": 933372,
+        "name":"Nakamura",
+        "image":"https://i.pravatar.cc/48?u=933372",
+        "balance": -20
+    },
+    {
+        "id": 499476,
+        "name":"Carlsen",
+        "image":"https://i.pravatar.cc/48?u=499476",
+        "balance": 0
+    }
+]

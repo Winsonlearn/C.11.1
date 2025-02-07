@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Exam</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .container{
+            color: white;
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <script id="template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div>
+            <img src="{{image}}" alt="">
+            <p>{{name}}</p>
+        </div>
+        {{/each}}
+    </script>
+</head>
+<body>
+    <div class="container"></div>
+    <button>Load More</button>
+
+    <script>
+        const pokemonTemplate = Handlebars.compile(document.getElementById('template').innerHTML);
+
+        let offset = 0;
+        const limit = 20;
+        async function fetchPokemon(){
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`);
+            const data = await response.json();
+            offset += limit;
+
+            const pokemons = data.results.map(pokemon => {
+                const id = pokemon.url.split('/').slice(-2, -1)[0];
+                return {
+                    name: pokemon.name,
+                    image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+                }
+            })
+            return pokemons;
+        }
+
+        function renderPokemon(pokemonList){
+            const container = document.querySelector('.container');
+            const html = pokemonTemplate(pokemonList);
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        async function loadPokemon(){
+            const content = await fetchPokemon();
+            console.log(content);
+            renderPokemon(content);
+        }
+
+        loadPokemon();
+        document.querySelector('button').addEventListener('click', loadPokemon);
+    </script>
+</body>
+</html>

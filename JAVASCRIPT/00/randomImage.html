@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    
+    <script>
+        const image = [
+        `assets/matrix_1.webp`,
+        `assets/matrix_2.jpeg`,
+        `assets/matrix_3.jpeg`,
+        `assets/matrix_4.jpeg`,
+        `assets/matrix_5.jpeg`
+        ];
+        const randomNumber = Math.floor(Math.random() * image.length)
+        const imgEl = document.createElement('img');
+        imgEl.src = image[randomNumber]
+        imgEl.style.width="300px"
+        imgEl.style.height="300px"
+        document.body.append(imgEl);
+        imgEl.style.display = "block";
+        imgEl.style.margin = "30vh 0 0 40%"
+        imgEl.style.border = "2px white solid"
+        imgEl.style.boxShadow = "2px 2px 5px 5px black"
+        
+        document.body.style.backgroundColor = "gray"
+        
+        const headerEl = document.createElement("header");
+        headerEl.style.backgroundColor = "red";
+        headerEl.style.width="100%"
+        headerEl.style.height="50px"
+        headerEl.style.position = "absolute";
+        headerEl.style.top = "0";
+        headerEl.style.left = "0";
+        headerEl.style.paddingTop = "15px"
+
+        document.body.append(headerEl);
+
+        
+        const list = document.createElement("a");
+        headerEl.append(list)
+
+        const link = document.createElement("a");
+        link.innerText = "home"
+        link.style.color = "black"
+        link.style.fontSize = "20px"
+        link.style.marginLeft = "20px"
+        link.style.textTransform = "uppercase";
+        link.style.textDecoration = "none";
+        link.href = "#"
+        list.append(link)
+        const link_1 = document.createElement("a");
+        link_1.innerText = "margin"
+        link_1.style.color = "black"
+        
+        link_1.style.fontSize = "20px"
+        link_1.style.textTransform = "uppercase"
+        link_1.style.marginLeft = "20px"
+        link_1.style.textDecoration = "none";
+        link_1.href = "#1"
+        list.append(link_1)
+        const link_2 = document.createElement("a");
+        link_2.innerText = "call"
+        link_2.style.color = "black"
+        link_2.style.marginLeft = "20px"
+        link_2.style.textTransform = "uppercase"
+        link_2.style.fontSize = "20px"
+        link_2.style.textDecoration = "none";
+        link_2.href = "#2"
+
+        list.append(link_2)
+
+
+        
+    </script>
+
+</body>
+</html>

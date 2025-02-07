@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Serbaguna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Link untuk registrasi lomba -->
+    <a href="#form-container" onclick="setLomba('registrasi')">Daftar Lomba 1</a> |
+    <a href="#form-container" onclick="setLomba('feedback')">Daftar Lomba 2</a>
+
+    <div class="form-container" id="form-container">
+        <h2>Form Serbaguna</h2>
+        <form id="universalForm">
+            <div class="form-group">
+                <label for="form-type">Jenis Lomba</label>
+                <select id="form-type" name="formType" required>
+                    <option value="">Pilih Jenis Lomba</option>
+                    <option value="registrasi">Lomba 1</option>
+                    <option value="feedback">Lomba 2</option>
+                </select>
+            </div>
+            <div id="form-fields">
+                <!-- Fields akan diisi berdasarkan jenis form -->
+            </div>
+            <button type="submit">Kirim</button>
+            <div class="status" id="form-status"></div>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzklIpR2MfOQhW1r7hki6Zmn6PWICDV2LkYCF6dq_D8Orcq3A_AaemHYCOEK2ug69nW/exec';
+        const form = document.getElementById('universalForm');
+        const formType = document.getElementById('form-type');
+        const formFields = document.getElementById('form-fields');
+        const formStatus = document.getElementById('form-status');
+
+        const formTemplates = {
+            registrasi: `
+                <div class="form-group">
+                    <label for="reg-nama">Nama Lengkap</label>
+                    <input type="text" id="reg-nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-telepon">Nomor Telepon</label>
+                    <input type="tel" id="reg-telepon" name="telepon" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-alamat">Alamat</label>
+                    <textarea id="reg-alamat" name="alamat" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="reg-pendidikan">Pendidikan Terakhir</label>
+                    <select id="reg-pendidikan" name="pendidikan" required>
+                        <option value="">Pilih Pendidikan</option>
+                        <option value="SMA">SMA/SMK</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                    </select>
+                </div>
+            `,
+            feedback: `
+                <div class="form-group">
+                    <label for="feed-nama">Nama</label>
+                    <input type="text" id="feed-nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="feed-rating">Rating</label>
+                    <select id="feed-rating" name="rating" required>
+                        <option value="">Pilih Rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (Sangat Puas)</option>
+                        <option value="4">⭐⭐⭐⭐ (Puas)</option>
+                        <option value="3">⭐⭐⭐ (Cukup)</option>
+                        <option value="2">⭐⭐ (Kurang)</option>
+                        <option value="1">⭐ (Sangat Kurang)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feed-komentar">Komentar</label>
+                    <textarea id="feed-komentar" name="komentar" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="feed-saran">Saran Perbaikan</label>
+                    <textarea id="feed-saran" name="saran" rows="4"></textarea>
+                </div>
+            `
+        };
+
+        // Fungsi untuk mengatur jenis lomba yang dipilih
+        function setLomba(lomba) {
+            formType.value = lomba; // Mengatur dropdown ke jenis lomba yang dipilih
+            formFields.innerHTML = formTemplates[lomba] || ''; // Isi form dengan template sesuai lomba
+            document.querySelector('#form-container').scrollIntoView({ behavior: 'smooth' }); // Scroll ke form
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            formStatus.textContent = 'Mengirim data...';
+            formStatus.className = 'status';
+            
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(form)
+            })
+            .then(response => {
+                formStatus.textContent = 'Terima kasih! Data berhasil dikirim.';
+                formStatus.className = 'status success';
+                form.reset();
+                formFields.innerHTML = '';
+            })
+            .catch(error => {
+                formStatus.textContent = 'Gagal mengirim data. Silakan coba lagi.';
+                formStatus.className = 'status error';
+                console.error('Error!', error.message);
+            });
+        });
+    </script>
+</body>
+</html>

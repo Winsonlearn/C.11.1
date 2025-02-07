@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons</title>
+    <style>
+        body{
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(red, green, blue);
+        }
+    </style>
+</head>
+<body>
+    <button data-color="red">red</button>
+    <button data-color="green">green</button>
+    <button data-color="blue">blue</button>
+    <script>
+        let Buttons = document.querySelectorAll("button");
+        Buttons.forEach(button=>{
+            button.addEventListener("click", ()=>{
+                document.body.style.backgroundColor = button.dataset.color;
+                const random = Math.floor(Math.random() * 256)
+                let rgb = [random, random, random ];
+                button.style.boxShadow = `10px 10px 100px 50px rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+                button.style.border = `3px solid rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+            })
+            button.style.margin = "10px"
+            button.style.width = "200px"
+            button.style.height = "200px"
+            button.style.borderRadius = "50%"
+        })
+    </script>
+</body>
+</html>

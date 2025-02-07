@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .performance .gambar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            width: calc(33.333% - 1.5rem);
+            min-width: 280px;
+            max-width: 380px;
+            transition: 
+                transform 0.3s ease-in-out, 
+                box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #f5f5f5;
+        }
+        
+        .image-container:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255,0,0,0.3);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .image-container .cta-link {
+            background-color: #ff0000;
+            border-radius: 1.25rem;
+            padding: 0.625rem 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .image-container .cta-link a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .image-container .cta-link a:hover {
+            color: #333;
+        }
+    </style>
+
+</head>
+<body>
+    <section class="content second-content">
+        <div class="performance">
+            <h1 class="hidden">Registration</h1>
+            <div class="gambar">
+                
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const competitionData = [
+                {
+                    image: "https://www.ignatiusglobal.sch.id/media_library/images/09666a0849a5cc9a158cf4077a779ea9.png",
+                    title: "LCC Bahasa",
+                    link: "https://forms.gle/HqQTLuqSdfVpkumq9"
+                },
+                {
+                    image: "https://www.ignatiusglobal.sch.id/media_library/images/09666a0849a5cc9a158cf4077a779ea9.png",
+                    title: "English Debate",
+                    link: "https://forms.gle/nQupMb1exPc4v56M9"
+                },
+                {
+                    image: "https://www.ignatiusglobal.sch.id/media_library/images/09666a0849a5cc9a158cf4077a779ea9.png",
+                    title: "Lomba Arab",
+                    link: "https://docs.google.com/forms/d/e/1FAIpQLSc9PJKnjvXiJ74mgJKnGpwFjgWXMJ_PZbQL22eeH_ILIwh0Kg/viewform?usp=pp_url"
+                },
+                {
+                    image: "https://www.ignatiusglobal.sch.id/media_library/images/09666a0849a5cc9a158cf4077a779ea9.png",
+                    title: "Lomba Cosplay",
+                    link: "https://docs.google.com/forms/d/e/1FAIpQLSedQd5Zr2EtbFYFws851F91b-bD2XDlCADNAPzADyrfl1QYxQ/viewform?usp=sf_link"
+                }
+            ];
+        
+            const posterContainer = document.querySelector('.performance .gambar');
+            if (posterContainer) {
+                posterContainer.innerHTML = '';
+        
+                competitionData.forEach((comp, index) => {
+                    const container = document.createElement('div');
+                    // Fix: Properly add the classes
+                    container.className = 'image-container hidden';
+                
+                    container.innerHTML = `
+                    
+                        <img id="poster" src="${comp.image}" alt="${comp.title}">
+                        <div class="cta-link">
+                            <a href="${comp.link}" target="_blank">Register ${comp.title}</a>
+                        </div>
+                        
+                    `;
+                
+                    posterContainer.appendChild(container);
+                });
+        
+                // Initialize the intersection observer after creating elements
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                        }
+                    });
+                });
+        
+                // Observe all hidden elements
+                const hiddenElements = document.querySelectorAll(".hidden");
+                hiddenElements.forEach((el) => observer.observe(el));
+            }
+        });
+    </script>
+</body>
+</html>

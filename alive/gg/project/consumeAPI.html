@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consume API</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background-color: #0a0a23;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .pokemon{
+            position: relative;
+            width: 50%;
+            height: 70%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
+        #image {
+            width: 200px;
+            height: 200px;
+        }
+        .nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .button {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: white;
+            font-size: 20px;
+            width: fit-content;
+            padding: 5px;
+            color: rgb(67, 60, 60);
+        }
+        .button:hover {
+            background-color: #0a0a23;
+        }
+
+        #loading{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 80px;
+        }
+        #pokeInfo {
+            width: 100%;
+            text-align: left;
+            background-color: rgb(191, 120, 97);
+        }
+    </style>
+</head>
+<body>
+    <div class="pokemon">
+        <h1 id="title"></h1>
+        <img src="" alt="" id="image">
+        <div class="nav">
+            <button class="button" id="left">◀Previous</button>
+            <div class="">
+                <input type="number" id="pokeID" placeholder="Enter ID : ">
+                <button id="searchButton">Search</button>
+                <button id="randomButton">Random</button>
+            </div>
+            <button class="button" id="right">Next</button>
+        </div>
+        <div id="loading"><img src="assets/loading.gif" alt=""></div>
+        <div id="pokeInfo"></div>
+    </div>
+    <script>
+        function updatePokemon() {
+            const starwar = data;
+            document.getElementById("title").innerHTML = starwar.name;
+            document.getElementById("image").src = starwar.url;
+            document.getElementById("pokeInfo").innerHTML = pokeInfo;
+        }
+
+        let data = {};
+        let currentIndex = 1;
+       
+        async function loadPokemon(id) {
+            document.getElementById("loading").style.display = "block";
+            try {
+                let result = await fetch(`https://swapi.dev/api/planets/${id}/`);
+                data = await result.json();
+                console.log(data);
+                currentIndex = data.id;
+                updatePokemon();
+            }
+            catch(error) {
+                console.log(error);
+            }
+            finally {
+                document.getElementById("loading").style.display = "none";
+            }
+        }
+
+        loadPokemon(currentIndex);
+
+        document.getElementById("right").addEventListener("click", () =>{
+            currentIndex++;
+            loadPokemon(currentIndex);
+        });
+        document.getElementById("left").addEventListener("click", () =>{
+            if (currentIndex > 1) { 
+                currentIndex--;
+                loadPokemon(currentIndex);
+            }});
+
+        document.getElementById("searchButton").addEventListener("click", ()=> {
+            let id = document.getElementById("pokeID").value;
+            loadPokemon(id);
+        });
+
+        document.getElementById("randomButton").addEventListener("click", () =>{
+            let randomNumber = Math.floor(Math.random() * 200) + 1; 
+            loadPokemon(randomNumber);}
+        );
+    </script>
+</body>
+</html>

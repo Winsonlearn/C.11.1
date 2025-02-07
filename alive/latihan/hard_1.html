@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Exam</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <script id="template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div>
+            <p>{{name}}</p>
+            <img src="{{image}}">
+        </div>
+        {{/each}}
+    </script>
+    <style>
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <button>load</button>
+
+    <script>
+        const templatePokemon = Handlebars.compile(document.getElementById('template').innerHTML);
+
+        let offset = 0;
+        const limit = 20;
+        async function fetchPokemon(){
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`)
+            const data = await response.json();
+            offset+= limit;
+            const pokemons = data.results.map(pokemon => {
+                const id = pokemon.url.split('/').slice(-2, -1)[0];
+                return {
+                    name: pokemon.name,
+                    image : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+                }
+            })
+            return pokemons;
+        }
+
+        function renderPokemon(List){
+            const container = document.querySelector('div');
+            const html = templatePokemon(List);
+            container.insertAdjacentHTML('beforeend', html)
+        }
+
+        async function load(){
+            const fetch = await fetchPokemon();
+            renderPokemon(fetch);
+        }
+
+        load();
+        document.querySelector('button').addEventListener('click', load);
+    </script>
+</body>
+</html>

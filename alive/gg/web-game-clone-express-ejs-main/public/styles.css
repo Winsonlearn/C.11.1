@@ -1,0 +1,118 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
+@import url("https://unpkg.com/aos@2.3.1/dist/aos.css"); */
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Work Sans';
+  background-color: #121210;
+}
+
+/* nav & footer styles */
+nav.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 65vh;
+  margin-bottom: 60px;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  background-color: #2b2b2b;
+}
+
+nav.navbar div.site-title {
+  display: flex;
+  flex-direction: row;
+}
+
+nav.navbar div.site-title a {
+  text-decoration: none;
+}
+
+nav.navbar div.site-title a h1 {
+  font-size: 1.3vw;
+  font-weight: bold;
+  color: white;
+}
+
+nav.navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-items: center;
+}
+nav.navbar li {
+  list-style-type: none;
+  margin-left: 5px;
+}
+
+nav.navbar li a {
+  color: white;
+}
+
+nav.navbar div.socials {
+  display: flex;
+  gap: 2vh;
+}
+
+footer {
+  color: #777;
+  text-align: center;
+  margin: 80px auto 20px;
+}
+
+/* index styles */
+.blogs a {
+  display: block;
+  margin: 40px 0;
+  padding-left: 30px;
+  border-left: 6px solid crimson;
+}
+.blogs a:hover h3 {
+  color: crimson;
+}
+
+/* details styles */
+.details {
+  position: relative;
+}
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 8px;
+}
+.delete:hover {
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* create styles */
+.create-blog form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.create-blog input,
+.create-blog textarea {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+}
+.create-blog label {
+  display: block;
+  margin-top: 24px;
+}
+textarea {
+  height: 120px;
+}
+.create-blog button {
+  margin-top: 20px;
+  background: crimson;
+  color: white;
+  padding: 6px;
+  border: 0;
+  font-size: 1.2em;
+  cursor: pointer;
+}

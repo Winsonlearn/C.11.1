@@ -1,0 +1,65 @@
+
+  /* BUY MENU */
+  
+  .buy-page{
+    height: 120vh;
+    background: url(./assets/5.jpeg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buy-container{
+    height: 120vh;
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: #0a0a23;
+    padding: 10rem 0 15rem 0 ;
+    gap: 1rem;
+  }
+  .buy-game{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+  .buy-cta{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: small;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    border-bottom: 1px solid purple;
+  }
+  
+  .buy-game{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .buy-game img{
+    width: 220px;
+    border: 3px solid yellow;
+
+  }
+  .buy-title{
+    font-weight: smaller;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  .sponsors{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+  }

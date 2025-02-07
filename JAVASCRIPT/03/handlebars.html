@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handlebars.js Example</title>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <script id="card-template" type="text/x-handlebars-template">
+        {{#each pokemons}}
+        <div class="card">
+            <h1 id="title">{{ title }}</h1>
+            <p class="text">{{ text }}</p>
+            {{#if imgUrl}}
+                <img src="{{ imgUrl }}" alt="" id="image">
+            {{else}}
+                <p>No Image</p>
+            {{/if}}
+        </div>
+        {{/each}}
+    </script>
+
+    <script>
+        const cardTemplate = Handlebars.compile(document.getElementById("card-template").innerHTML);
+
+        const data = {
+            pokemons: [
+                {
+                    title: "The Best",
+                    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam qui architecto provident",
+                    imgUrl: "assets/matrix_1.webp"
+                },
+                {
+                    title: "The Best of The Best",
+                    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam qui architecto provident",
+                    imgUrl: "assets/matrix_2.jpeg"
+                }
+            ]
+        };
+
+        document.getElementById("content").innerHTML = cardTemplate(data);
+    </script>
+</body>
+</html>
